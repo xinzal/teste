@@ -38,14 +38,21 @@
 
         /* --- Header --- */
         header {
-            padding: 20px 0; position: fixed; width: 100%; top: 0;
+            padding: 15px 0; /* Reduzi levemente o padding para acomodar melhor a imagem */
+            position: fixed; width: 100%; top: 0;
             background: rgba(19, 21, 38, 0.95); backdrop-filter: blur(10px);
             z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
         }
         nav { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; color: white;}
-        .logo img { height: 30px; }
-        .nav-links { display: flex; gap: 30px; }
+        
+        /* AJUSTE DO LOGO DE IMAGEM NO HEADER */
+        .logo { display: flex; align-items: center; }
+        .logo img { 
+            height: 45px; /* Altura fixa para o logo no header */
+            width: auto;  /* Largura automática para manter a proporção */
+        }
+
+        .nav-links { display: flex; gap: 30px; align-items: center; }
         .nav-links a { color: var(--text-gray); font-size: 0.95rem; font-weight: 500; }
         .nav-links a:hover { color: var(--accent-blue); }
         .btn-header {
@@ -290,6 +297,12 @@
             padding: 60px 0 30px 0; border-top: 1px solid rgba(255,255,255,0.05);
             text-align: center; color: var(--text-gray); font-size: 0.9rem; margin-top: 80px;
         }
+        .footer-logo img {
+            height: 40px; /* Altura do logo no footer */
+            width: auto;
+            display: block;
+            margin: 0 auto 15px auto; /* Centraliza a imagem */
+        }
         .whatsapp-float {
             position: fixed; bottom: 30px; right: 30px;
             background-color: var(--whatsapp-green); color: white;
@@ -327,7 +340,10 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo"><img src="image_0.png" alt="Lynk Logo">Lynk</div>
+                <div class="logo">
+                    <img src="logo LYNK.png" alt="Lynk Soluções Digitais">
+                </div>
+                
                 <ul class="nav-links">
                     <li><a href="#home">Início</a></li>
                     <li><a href="#services">Soluções</a></li>
@@ -459,7 +475,9 @@
 
     <footer>
         <div class="container">
-            <div class="footer-logo" style="color:white; font-weight:700; font-size:1.5rem; margin-bottom:15px;"><img src="image_0.png" alt="Lynk Logo" style="height: 25px; vertical-align: middle;"> Lynk</div>
+            <div class="footer-logo">
+                <img src="logo LYNK.png" alt="Lynk Soluções Digitais">
+            </div>
             <p>&copy; 2024 Lynk Solutions. Transformando ideias em realidade digital.</p>
         </div>
     </footer>
