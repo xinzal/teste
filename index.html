@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lynk | Soluções Digitais</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- Variáveis Principais do Site Lynk --- */
+        :root {
+            --bg-dark: #131526;
+            --bg-card: #1c1f36;
+            --text-white: #ffffff;
+            --text-gray: #b0b5c9;
+            --accent-gradient: linear-gradient(90deg, #a3bbf1 0%, #ffffff 100%);
+            --accent-blue: #a3bbf1;
+            --border-color: #383f5c;
+            --whatsapp-green: #25D366;
+        }
+
+        /* --- Geral --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- Header --- */
+        header {
+            padding: 20px 0; position: fixed; width: 100%; top: 0;
+            background: rgba(19, 21, 38, 0.95); backdrop-filter: blur(10px);
+            z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; color: white;}
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--text-gray); font-size: 0.95rem; font-weight: 500; }
+        .nav-links a:hover { color: var(--accent-blue); }
+        .btn-header {
+            padding: 8px 25px; border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50px; font-size: 14px; font-weight: 600;
+        }
+        .btn-header:hover { background: white; color: var(--bg-dark); border-color: white; }
+
+        /* --- Hero --- */
+        .hero {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; padding-top: 80px;
+            background: radial-gradient(circle at center, #232742 0%, var(--bg-dark) 70%);
+        }
+        .hero-content h1 {
+            font-size: 3.5rem; line-height: 1.2; margin-bottom: 25px;
+            background: linear-gradient(180deg, #fff, #aebad6);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-content p {
+            font-size: 1.2rem; color: var(--text-gray); margin-bottom: 40px;
+            max-width: 650px; margin: 0 auto 45px auto;
+        }
+        .btn-gradient {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--accent-gradient); color: var(--bg-dark);
+            padding: 16px 45px; border-radius: 50px; font-weight: 700;
+            font-size: 1.1rem; box-shadow: 0 4px 20px rgba(163, 187, 241, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-gradient:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(163, 187, 241, 0.5); }
+
+        /* --- Serviços --- */
+        .section-padding { padding: 100px 0; }
+        .section-title { text-align: center; margin-bottom: 70px; }
+        .section-title h2 { font-size: 2.5rem; margin-bottom: 15px; }
+        .section-title p { color: var(--text-gray); font-size: 1.1rem;}
+        .cards-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
+        }
+        .card {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-color);
+            border-radius: 20px; padding: 40px 30px; text-align: center; transition: 0.4s;
+        }
+        .card:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); transform: translateY(-10px); }
+        .icon-box { 
+            font-size: 32px; margin-bottom: 25px; color: var(--accent-blue); 
+            background: rgba(163, 187, 241, 0.1); width: 70px; height: 70px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; margin-left: auto; margin-right: auto;
+        }
+        .card h3 { margin-bottom: 15px; font-size: 1.4rem; color: white; }
+        .card p { color: var(--text-gray); font-size: 0.95rem; }
+
+        /* --- Tabela de Preços --- */
+        .plans-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px; align-items: start;
+        }
+        .plan-card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 24px; padding: 35px 30px; position: relative;
+            transition: 0.3s; display: flex; flex-direction: column; height: 100%;
+        }
+        .plan-card:hover { transform: translateY(-8px); border-color: var(--accent-blue); box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        .plan-featured {
+            border: 1px solid var(--accent-blue);
+            box-shadow: 0 0 30px rgba(163, 187, 241, 0.1);
+            background: linear-gradient(180deg, rgba(163, 187, 241, 0.05) 0%, var(--bg-card) 100%);
+            transform: scale(1.02);
+        }
+        .plan-featured:hover { transform: scale(1.02) translateY(-8px); }
+        .badge {
+            position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+            background: var(--accent-gradient); color: var(--bg-dark);
+            padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .plan-header { text-align: center; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 25px; }
+        .plan-header h3 { font-size: 1.3rem; color: var(--text-white); margin-bottom: 15px; }
+        .price { font-size: 1.8rem; font-weight: 700; color: var(--text-white); margin-bottom: 5px; }
+        .price span { font-size: 0.9rem; font-weight: 400; color: var(--text-gray); }
+        .plan-desc { font-size: 0.9rem; color: var(--accent-blue); margin-top: 10px; }
+        .plan-features { margin-bottom: 30px; }
+        .plan-features li {
+            margin-bottom: 15px; color: #d1d5e6; font-size: 0.95rem; display: flex; align-items: center; gap: 12px;
+        }
+        .plan-features i { color: var(--accent-blue); font-size: 14px; }
+        
+        .plan-actions { margin-top: auto; display: flex; flex-direction: column; gap: 12px; }
+        .btn-plan {
+            text-align: center; padding: 14px; border-radius: 12px;
+            background: rgba(255,255,255,0.03); color: white; font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.2s; font-size: 0.95rem;
+        }
+        .btn-plan:hover { background: var(--accent-blue); color: var(--bg-dark); border-color: var(--accent-blue); }
+        .btn-featured { background: var(--text-white); color: var(--bg-dark); }
+        .btn-featured:hover { background: #e0e6ff; transform: translateY(-2px); }
+        .btn-preview { 
+            background: transparent; border: 1px dashed rgba(163, 187, 241, 0.4); 
+            color: var(--accent-blue); display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+        .btn-preview:hover { background: rgba(163, 187, 241, 0.08); border-color: var(--accent-blue); }
+
+
+        /* --- MODAL SYSTEM (Para os Previews) --- */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 2000;
+            justify-content: center; align-items: center; padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        .modal-container {
+            width: 100%; max-width: 1100px; height: 90vh;
+            background: #fff; border-radius: 16px; position: relative;
+            overflow: hidden; box-shadow: 0 25px 80px rgba(0,0,0,0.7);
+            animation: modalFadeIn 0.3s ease;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-header-bar {
+            background: #f1f1f1; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid #ddd; height: 50px;
+        }
+        .browser-dots { display: flex; gap: 6px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+        
+        .modal-close-btn {
+            font-size: 24px; color: #555; cursor: pointer; transition: 0.2s;
+            width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 4px;
+        }
+        .modal-close-btn:hover { background: #e0e0e0; color: #000; }
+        
+        .preview-scroll-area {
+            height: calc(100% - 50px); overflow-y: auto; -webkit-overflow-scrolling: touch;
+        }
+
+        /* --- PREVIEW 1: LANDING PAGE (SlimWatch - Dark Tech) --- */
+        .lp-preview { font-family: 'Inter', sans-serif; background: #0f1014; color: #fff; }
+        .lp-nav { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .lp-logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; background: linear-gradient(90deg, #ff4d4d, #f9cb28); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
+        
+        .lp-hero-section {
+            display: flex; align-items: center; padding: 60px 40px; min-height: 500px;
+            background: radial-gradient(circle at 70% 50%, #2a1a1a 0%, #0f1014 60%);
+        }
+        .lp-hero-text { flex: 1; padding-right: 40px; }
+        .lp-tag { color: #f9cb28; text-transform: uppercase; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; display: block;}
+        .lp-hero-text h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; font-weight: 800; }
+        .lp-hero-text p { color: #888; margin-bottom: 30px; font-size: 1.1rem; max-width: 450px; }
+        .lp-hero-img { flex: 1; display: flex; justify-content: center; position: relative; }
+        .lp-watch-mockup {
+            width: 300px; height: 300px; background: #222; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 50px rgba(255, 77, 77, 0.2);
+            border: 2px solid #333; position: relative;
+        }
+        .lp-cta-btn {
+            background: #ff4d4d; color: white; padding: 15px 40px; border-radius: 50px; 
+            font-weight: 700; border: none; cursor: pointer; font-size: 1rem;
+            box-shadow: 0 10px 20px rgba(255, 77, 77, 0.3); transition: 0.3s;
+        }
+        .lp-cta-btn:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(255, 77, 77, 0.5); }
+        
+        .lp-features-strip { display: flex; gap: 20px; padding: 40px; background: #16171d; overflow-x: auto; }
+        .lp-feat-card { 
+            min-width: 200px; background: #1f2129; padding: 25px; border-radius: 12px; 
+            border: 1px solid #2d303a; flex: 1; text-align: center;
+        }
+        .lp-feat-card i { font-size: 24px; color: #ff4d4d; margin-bottom: 15px; }
+        .lp-feat-card h4 { font-size: 1rem; margin-bottom: 5px; }
+        .lp-feat-card p { font-size: 0.8rem; color: #777; }
+
+
+        /* --- PREVIEW 2: INSTITUCIONAL (Clínica Clean) --- */
+        .inst-preview { font-family: 'Poppins', sans-serif; color: #444; background: #fdfdfd; }
+        .inst-navbar { 
+            display: flex; justify-content: space-between; padding: 20px 50px; align-items: center; 
+            background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.03); position: sticky; top: 0; z-index: 10;
+        }
+        .inst-brand { color: #00b894; font-weight: 700; font-size: 1.4rem; display: flex; align-items: center; gap: 8px; }
+        .inst-menu { display: flex; gap: 20px; font-size: 0.9rem; font-weight: 500; color: #666; }
+        
+        .inst-hero { 
+            display: flex; align-items: center; padding: 80px 50px; background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+        }
+        .inst-hero-content { flex: 1; }
+        .inst-hero-content h1 { color: #2d3436; font-size: 2.8rem; line-height: 1.2; margin-bottom: 20px; }
+        .inst-hero-content p { color: #636e72; font-size: 1.1rem; margin-bottom: 30px; max-width: 500px; }
+        .inst-card-float {
+            flex: 1; background: white; padding: 30px; border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 184, 148, 0.15); max-width: 400px; margin-left: auto;
+        }
+        .inst-input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #eee; border-radius: 8px; background: #f9f9f9; }
+        .inst-btn { width: 100%; padding: 12px; background: #00b894; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .inst-btn:hover { background: #00a187; }
+
+        .inst-services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 80px 50px; }
+        .inst-srv-card { text-align: center; padding: 30px; border: 1px solid #eee; border-radius: 12px; transition: 0.3s; }
+        .inst-srv-card:hover { border-color: #00b894; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+
+
+        /* --- PREVIEW 3: PROFISSIONAL (Arquiteto Luxury) --- */
+        .prof-preview { font-family: 'Inter', sans-serif; color: #e0e0e0; background: #111; }
+        .prof-header { padding: 40px 60px; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #333; }
+        .prof-logo { font-family: 'Playfair Display', serif; font-size: 2rem; color: #fff; line-height: 1;}
+        .prof-logo span { color: #d4af37; font-style: italic; }
+        
+        .prof-main { padding: 60px; }
+        .prof-intro h1 { 
+            font-family: 'Playfair Display', serif; font-size: 4rem; color: #fff; 
+            margin-bottom: 30px; line-height: 1.1; max-width: 800px;
+        }
+        .prof-intro p { font-size: 1.1rem; color: #888; margin-bottom: 50px; max-width: 500px; border-left: 2px solid #d4af37; padding-left: 20px;}
+        
+        .prof-gallery { 
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; 
+        }
+        .prof-item { 
+            height: 350px; background: #222; position: relative; overflow: hidden; cursor: pointer;
+        }
+        .prof-item:first-child { grid-row: span 2; height: 720px; }
+        .prof-img-placeholder { width: 100%; height: 100%; background: #222; transition: 0.5s; opacity: 0.7; }
+        .prof-item:hover .prof-img-placeholder { transform: scale(1.05); opacity: 1; }
+        .prof-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            transform: translateY(20px); transition: 0.4s;
+        }
+        .prof-item:hover .prof-overlay { transform: translateY(0); }
+        .prof-overlay h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 5px; color: #fff; }
+        .prof-overlay p { font-size: 0.8rem; color: #d4af37; letter-spacing: 2px; text-transform: uppercase; }
+
+
+        /* --- Footer e Mobile --- */
+        footer {
+            padding: 60px 0 30px 0; border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center; color: var(--text-gray); font-size: 0.9rem; margin-top: 80px;
+        }
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 30px;
+            background-color: var(--whatsapp-green); color: white;
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 1001; transition: 0.3s;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.2rem; }
+            .nav-links { display: none; }
+            .plans-grid { grid-template-columns: 1fr; }
+            
+            /* Ajustes Mobile Previews */
+            .lp-hero-section { flex-direction: column; text-align: center; padding: 40px 20px; }
+            .lp-hero-text { padding: 0; margin-bottom: 40px; }
+            .lp-hero-text h1 { font-size: 2.5rem; }
+            
+            .inst-hero { flex-direction: column; padding: 40px 20px; }
+            .inst-card-float { margin-top: 30px; margin-left: 0; width: 100%; }
+            .inst-services-grid { grid-template-columns: 1fr; padding: 40px 20px; }
+            
+            .prof-header { padding: 20px; }
+            .prof-main { padding: 30px 20px; }
+            .prof-intro h1 { font-size: 2.5rem; }
+            .prof-gallery { grid-template-columns: 1fr; }
+            .prof-item:first-child { grid-row: auto; height: 350px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo"><i class="fas fa-cube"></i> Lynk</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#services">Soluções</a></li>
+                    <li><a href="#plans">Planos</a></li>
+                </ul>
+                <a href="https://wa.me/5500000000000" class="btn-header">Fale Conosco</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>Seu negócio está conectado<br>ao digital do jeito certo?</h1>
+            <p>Design de ponta, vídeos que engajam e tecnologia para escalar seus resultados. Transforme visitantes em clientes hoje.</p>
+            <a href="https://wa.me/5500000000000" class="btn-gradient"><i class="fab fa-whatsapp"></i> Chame no WhatsApp</a>
+        </div>
+    </section>
+
+    <section class="section-padding" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nossas Soluções</h2>
+                <p>O tripé fundamental para o crescimento do seu negócio.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="icon-box"><i class="fas fa-pen-nib"></i></div>
+                    <h3>Design Premium</h3>
+                    <p>Identidade visual, UI/UX e materiais gráficos que transmitem autoridade e valor instantaneamente.</p>
+                </div>
+                <div class="card">
+                    <div class="icon-box"><i class="fas fa-play"></i></div>
+                    <h3>Vídeo & Motion</h3>
+                    <p>Produção audiovisual e animações (motion graphics) otimizadas para retenção nas redes sociais.</p>
+                </div>
+                <div class="card">
+                    <div class="icon-box"><i class="fas fa-code"></i></div>
+                    <h3>Tecnologia</h3>
+                    <p>Desenvolvimento de sites de alta performance, landing pages velozes e automações digitais.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" id="plans" style="background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Escolha seu Plano</h2>
+                <p>Veja exemplos reais do que podemos construir para você.</p>
+            </div>
+
+            <div class="plans-grid">
+                
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Landing Page</h3>
+                        <div class="price">R$ 600 <span style="font-size:0.6em">a 1.500</span></div>
+                        <p class="plan-desc">Foco total em conversão de vendas.</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Página Única (One Page)</li>
+                        <li><i class="fas fa-check"></i> Design focado em CTA</li>
+                        <li><i class="fas fa-check"></i> Carregamento ultra-rápido</li>
+                        <li><i class="fas fa-check"></i> Copywriting persuasivo</li>
+                    </ul>
+                    <div class="plan-actions">
+                         <button class="btn-plan btn-preview" onclick="openModal('modal-lp')"><i class="far fa-eye"></i> Visualizar Modelo</button>
+                        <a href="https://wa.me/5500000000000?text=Tenho%20interesse%20na%20Landing%20Page" class="btn-plan">Solicitar Orçamento</a>
+                    </div>
+                </div>
+
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Site Institucional</h3>
+                        <div class="price">R$ 800 <span style="font-size:0.6em">a 2.000</span></div>
+                        <p class="plan-desc">Credibilidade para profissionais.</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Até 5 páginas internas</li>
+                        <li><i class="fas fa-check"></i> Home, Sobre, Serviços, Contato</li>
+                        <li><i class="fas fa-check"></i> Totalmente Responsivo</li>
+                        <li><i class="fas fa-check"></i> Mapa e Botão WhatsApp</li>
+                    </ul>
+                    <div class="plan-actions">
+                        <button class="btn-plan btn-preview" onclick="openModal('modal-inst')"><i class="far fa-eye"></i> Visualizar Modelo</button>
+                        <a href="https://wa.me/5500000000000?text=Tenho%20interesse%20no%20Site%20Institucional" class="btn-plan">Solicitar Orçamento</a>
+                    </div>
+                </div>
+
+                <div class="plan-card plan-featured">
+                    <div class="badge">Recomendado</div>
+                    <div class="plan-header">
+                        <h3>Site Profissional</h3>
+                        <div class="price">R$ 2.000 <span style="font-size:0.6em">a 4.000</span></div>
+                        <p class="plan-desc">Design exclusivo e experiência premium.</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Design Customizado (UI/UX)</li>
+                        <li><i class="fas fa-check"></i> Animações & Interatividade</li>
+                        <li><i class="fas fa-check"></i> Otimização SEO Básica</li>
+                        <li><i class="fas fa-check"></i> Integração Ferramentas (Pixel)</li>
+                    </ul>
+                    <div class="plan-actions">
+                        <button class="btn-plan btn-preview" onclick="openModal('modal-prof')"><i class="far fa-eye"></i> Visualizar Modelo</button>
+                        <a href="https://wa.me/5500000000000?text=Tenho%20interesse%20no%20Site%20Profissional" class="btn-plan btn-featured">Quero este nível</a>
+                    </div>
+                </div>
+
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Sistemas Web</h3>
+                        <div class="price" style="font-size:1.4rem">Sob Consulta</div>
+                        <p class="plan-desc">Para projetos complexos e robustos.</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Área de Login / Dashboard</li>
+                        <li><i class="fas fa-check"></i> Gestão de Agendamentos</li>
+                        <li><i class="fas fa-check"></i> Banco de Dados Integrado</li>
+                        <li><i class="fas fa-check"></i> APIs Personalizadas</li>
+                    </ul>
+                    <div class="plan-actions">
+                        <a href="https://wa.me/5500000000000?text=Tenho%20interesse%20em%20um%20Sistema" class="btn-plan">Agendar Reunião</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo" style="color:white; font-weight:700; font-size:1.5rem; margin-bottom:15px;"><i class="fas fa-cube"></i> Lynk</div>
+            <p>&copy; 2024 Lynk Solutions. Transformando ideias em realidade digital.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/5500000000000" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
+
+    <div id="modal-lp" class="modal-overlay" onclick="closeModal(event, 'modal-lp')">
+        <div class="modal-container">
+            <div class="modal-header-bar">
+                <div class="browser-dots"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                <div class="modal-close-btn" onclick="forceClose('modal-lp')">&times;</div>
+            </div>
+            <div class="preview-scroll-area lp-preview">
+                <nav class="lp-nav">
+                    <div class="lp-logo">SLIMWATCH<span style="color:#fff;">.TECH</span></div>
+                    <button class="lp-cta-btn" style="padding: 10px 20px; font-size: 0.8rem;" onclick="simularAcao('Comprar Agora')">COMPRAR</button>
+                </nav>
+                <div class="lp-hero-section">
+                    <div class="lp-hero-text">
+                        <span class="lp-tag">Lançamento 2024</span>
+                        <h1>Domine seu tempo e sua saúde.</h1>
+                        <p>O smartwatch mais avançado da categoria com sensores de bioimpedância e 7 dias de bateria.</p>
+                        <button class="lp-cta-btn" onclick="simularAcao('Garantir Oferta')">GARANTIR OFERTA - 30% OFF</button>
+                    </div>
+                    <div class="lp-hero-img">
+                        <div class="lp-watch-mockup">
+                            <div style="text-align:center;">
+                                <i class="fas fa-clock fa-3x" style="color:#fff;"></i>
+                                <div style="margin-top:10px; color:#ff4d4d; font-weight:bold;">10:42</div>
+                                <div style="font-size:0.7rem; color:#777;">98 BPM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lp-features-strip">
+                    <div class="lp-feat-card"><i class="fas fa-heartbeat"></i><h4>Bio-Sensores</h4><p>Monitoramento 24h</p></div>
+                    <div class="lp-feat-card"><i class="fas fa-water"></i><h4>À prova d'água</h4><p>Até 50 metros</p></div>
+                    <div class="lp-feat-card"><i class="fas fa-battery-full"></i><h4>Bateria Longa</h4><p>7 dias de uso</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-inst" class="modal-overlay" onclick="closeModal(event, 'modal-inst')">
+        <div class="modal-container">
+            <div class="modal-header-bar">
+                <div class="browser-dots"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                <div class="modal-close-btn" onclick="forceClose('modal-inst')">&times;</div>
+            </div>
+            <div class="preview-scroll-area inst-preview">
+                <nav class="inst-navbar">
+                    <div class="inst-brand"><i class="fas fa-leaf"></i> CleanClinic</div>
+                    <div class="inst-menu">
+                        <span>Especialidades</span>
+                        <span>Corpo Clínico</span>
+                        <span style="color:#00b894; font-weight:700; cursor:pointer;" onclick="simularAcao('Link Whatsapp')">Agendar Consulta</span>
+                    </div>
+                </nav>
+                <section class="inst-hero">
+                    <div class="inst-hero-content">
+                        <h1>Sua saúde bucal em boas mãos.</h1>
+                        <p>Tecnologia avançada e atendimento humanizado para transformar o seu sorriso e recuperar sua autoestima.</p>
+                        <div style="display:flex; gap:15px; margin-top:20px;">
+                            <div style="text-align:center;"><i class="fas fa-star" style="color:#f1c40f"></i><br><strong>4.9/5</strong><br><small>Google</small></div>
+                            <div style="text-align:center;"><i class="fas fa-user-md" style="color:#00b894"></i><br><strong>+15 Anos</strong><br><small>Experiência</small></div>
+                        </div>
+                    </div>
+                    <div class="inst-card-float">
+                        <h3 style="margin-bottom:20px; color:#2d3436;">Agende sua avaliação</h3>
+                        <input type="text" class="inst-input" placeholder="Seu Nome">
+                        <input type="text" class="inst-input" placeholder="Seu Telefone">
+                        <button class="inst-btn" onclick="simularAcao('Enviar Formulário')">Solicitar Horário</button>
+                    </div>
+                </section>
+                <section class="inst-services-grid">
+                    <div class="inst-srv-card"><i class="fas fa-magic fa-2x" style="color:#00b894; margin-bottom:15px;"></i><h4>Estética</h4><p>Lentes de contato e clareamento.</p></div>
+                    <div class="inst-srv-card"><i class="fas fa-tooth fa-2x" style="color:#00b894; margin-bottom:15px;"></i><h4>Implantes</h4><p>Recupere a função mastigatória.</p></div>
+                    <div class="inst-srv-card"><i class="fas fa-smile fa-2x" style="color:#00b894; margin-bottom:15px;"></i><h4>Ortodontia</h4><p>Alinhadores invisíveis e aparelhos.</p></div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-prof" class="modal-overlay" onclick="closeModal(event, 'modal-prof')">
+        <div class="modal-container" style="background: #111;">
+            <div class="modal-header-bar" style="background: #1a1a1a; border-color: #333;">
+                <div class="browser-dots"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                <div class="modal-close-btn" onclick="forceClose('modal-prof')" style="color:white;">&times;</div>
+            </div>
+            <div class="preview-scroll-area prof-preview">
+                <header class="prof-header">
+                    <div class="prof-logo">ARCH<span>.</span>STUDIO</div>
+                    <div style="font-size: 0.8rem; letter-spacing: 2px;">MENU <i class="fas fa-bars" style="margin-left:10px;"></i></div>
+                </header>
+                <section class="prof-main">
+                    <div class="prof-intro">
+                        <h1>Arquitetura que define<br><span style="color:#d4af37; font-style:italic;">novos padrões</span>.</h1>
+                        <p>Criamos espaços que transcendem o funcional e se tornam experiências sensoriais únicas.</p>
+                    </div>
+                    <div class="prof-gallery">
+                        <div class="prof-item" onclick="simularAcao('Ver Projeto Mansão')">
+                            <div class="prof-img-placeholder" style="background: linear-gradient(45deg, #222, #333);"></div>
+                            <div class="prof-overlay">
+                                <h3>Mansão Horizon</h3>
+                                <p>Jurerê Internacional</p>
+                            </div>
+                        </div>
+                        <div class="prof-item" onclick="simularAcao('Ver Projeto Loft')">
+                            <div class="prof-img-placeholder" style="background: linear-gradient(135deg, #1a1a1a, #2a2a2a);"></div>
+                            <div class="prof-overlay">
+                                <h3>Loft Industrial</h3>
+                                <p>São Paulo, SP</p>
+                            </div>
+                        </div>
+                        <div class="prof-item" onclick="simularAcao('Ver Projeto Resort')">
+                            <div class="prof-img-placeholder" style="background: linear-gradient(180deg, #111, #222);"></div>
+                            <div class="prof-overlay">
+                                <h3>Eco Resort</h3>
+                                <p>Bahia, BA</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align:center; margin-top:60px;">
+                        <button style="background:transparent; color:#d4af37; border:1px solid #d4af37; padding:15px 40px; cursor:pointer; letter-spacing:2px; font-size:0.9rem; transition:0.3s;" onmouseover="this.style.background='#d4af37'; this.style.color='#000'" onmouseout="this.style.background='transparent'; this.style.color='#d4af37'" onclick="simularAcao('Ver Portfólio Completo')">VER PORTFÓLIO COMPLETO</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Lógica de Modais
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event, modalId) {
+            if (event.target === document.getElementById(modalId)) {
+                forceClose(modalId);
+            }
+        }
+        
+        function forceClose(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Simulação de Interatividade nos Previews
+        function simularAcao(acao) {
+            alert(`[SIMULAÇÃO] Botão clicado: ${acao}.\n\nNo site real, isso levaria para o WhatsApp, Formulário ou Página de Detalhes.`);
+        }
+    </script>
+
+</body>
+</html>
